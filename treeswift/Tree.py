@@ -927,7 +927,7 @@ class Tree:
         if isinstance(self.root.edge_length, float) and self.root.edge_length.is_integer():
             suffix += str(int(self.root.edge_length))
         elif self.root.edge_length is not None:
-            suffix += str(self.root.edge_length)
+            suffix += str(FormattedDecimal(str(self.root.edge_length)))
         suffix += ';'
         if self.is_rooted:
             return f'[&R] {self.root.newick()}{suffix}'

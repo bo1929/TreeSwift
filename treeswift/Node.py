@@ -1,9 +1,14 @@
 #! /usr/bin/env python
 from collections import deque
 from copy import copy
+from decimal import Decimal
 UNSAFE_SYMBOLS = {';', '(', ')', ',', '[', ']', ':', "'"}
 INORDER_NONBINARY = "Can't do inorder traversal on non-binary tree"
 INVALID_NEWICK = "Tree not valid Newick tree"
+
+class FormatedDecimal(Decimal):
+    def __str__(self):
+        return f'{self:.{abs(self.as_tuple().exponent)}f}'
 
 class Node:
     '''``Node`` class'''
@@ -160,7 +165,7 @@ class Node:
                     if isinstance(c.edge_length, float) and c.edge_length.is_integer():
                         out.append(str(int(c.edge_length)))
                     elif c.edge_length is not None:
-                        out.append(str(c.edge_length))
+                        out.append(str(FormatedDecimal(str(c.edge_length))))
                     out.append(',')
                     del c.string_rep
                 out.pop() # trailing comma
